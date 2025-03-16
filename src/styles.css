@@ -1,0 +1,17 @@
+* {
+    margin: 0px;
+}
+
+#pageStructure {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;
+    grid-template-rows: 600px;
+}
+
+#sidebar {
+    border: 1px solid black;
+}
+
+#appTitle {
+    text-align: center;
+}
