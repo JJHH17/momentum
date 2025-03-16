@@ -1,6 +1,11 @@
-import { titleContainerSelect, siteContainerSelect } from "./elementSelect";
+import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect } from "./elementSelect";
 
 export { titleContainerSelect } from "./elementSelect";
+
+// Stores projects
+let projects = [];
+// Confirms which index we're on
+let currentActiveIndex = null;
 
 // Responsible for creating button elements on page
 
@@ -62,4 +67,37 @@ function createProjectModal() {
     projectSubmit.textContent = "Create";
     projectSubmit.type = "button";
     projectForm.appendChild(projectSubmit);
+
+    projectSubmit.addEventListener("click", () => {
+        createProject(projectTitleInput.value, projectDescInput.value);
+        // Removes project modal
+        removeProjectModal();
+        renderToSidebar();
+    })
+}
+
+
+// Function allowing user to create a Project object
+function createProject(title, description) {
+    // Creates project
+    const newProject = { title, description, toDo: [] };
+    // Push to projects array
+    projects.push(newProject);
+}
+
+
+// Renders projects to sidebar, places projects in sidebar view
+function renderToSidebar() {
+    const sidebar = sidebarSelect();
+    sidebar.innerHTML = ""; // Clears sidebar projects when called
+
+    // Loops through projects for displaying
+    projects.forEach((project, index) => {
+        let projectDiv = document.createElement("div");
+        projectDiv.classList.add("projectHolder");
+        projectDiv.textContent = `${project.title} - ${project.description}`;
+
+        // Appends to sidebar
+        sidebar.appendChild(projectDiv);
+    })
 }
