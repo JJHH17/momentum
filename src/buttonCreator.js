@@ -73,7 +73,7 @@ function createProjectModal() {
         // Removes project modal
         removeProjectModal();
         renderToSidebar();
-    })
+    });
 }
 
 
@@ -99,5 +99,15 @@ function renderToSidebar() {
 
         // Appends to sidebar
         sidebar.appendChild(projectDiv);
+
+
+            // Mouse over events colour div when hovering over
+        projectDiv.addEventListener("mouseover", () => {
+            projectDiv.style.backgroundColor = "pink";
+        });
+    
+        projectDiv.addEventListener("mouseleave", () => {
+            projectDiv.style.backgroundColor = "";
+        });
     })
 }
