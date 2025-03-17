@@ -118,8 +118,9 @@ function renderToSidebar() {
         // Expands project into main area
         projectDiv.addEventListener("click", () => {
             loadProject(index);
-            // Remove "create project" modal
+            // Remove "create project" modal and "to do" modal
             removeProjectModal();
+            removeToDoModal();
             // Creates "Add to do" button
             removeToDoButton(); // Removes previous modal
             createToDoBtn(); // Add button
@@ -162,6 +163,8 @@ function createToDoBtn() {
         if (document.querySelector("#toDoModalDiv")) {
             alert("Please fill out the current modal")
         } else {
+            // Removes project modal
+            removeProjectModal();
             createToDoModal();
         }
     });
@@ -193,6 +196,12 @@ function createToDoModal() {
     const statusCheckInput = document.createElement("input");
     statusCheckInput.type = "checkbox";
     toDoForm.appendChild(statusCheckInput);
+    let isCompleteValue = false; // manages value for status
+
+    // Handles check box value and behaviour
+    statusCheckInput.addEventListener("change", () => {
+        isCompleteValue = statusCheckInput.checked;
+    });
 
     // Creates to do title elements
     const toDoTitleLabel = document.createElement("label");
@@ -232,4 +241,19 @@ function createToDoModal() {
     submitToDo.type = "button";
     submitToDo.textContent = "Create";
     toDoForm.appendChild(submitToDo);
+
+    // Handling submission behaviour, feeds into projects "To Do" array
+    submitToDo.addEventListener("click", () => {
+        if (currentActiveIndex !== null && toDoTitleInput.value.trim !== "") {
+            projects[currentActiveIndex].toDo.push({
+                completed: isCompleteValue,
+                title: toDoTitleInput.value.trim(),
+                notes: toDoNotesInput.value.trim(),
+                dueDate: toDoDateInput,
+                priority: toDoPriorityInput.value.trim(),
+            })
+            // Removal modal
+            removeToDoModal();
+        }
+    })
 }
