@@ -40,3 +40,10 @@ export function removeToDoButton() {
         toDoButton.remove();
     }
 }
+
+export function removeToDoModal() {
+    const toDoModal = document.querySelector("#toDoModalDiv");
+    if (toDoModal) {
+        toDoModal.remove();
+    }
+}

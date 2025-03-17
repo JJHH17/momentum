@@ -1,4 +1,4 @@
-import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton } from "./elementSelect";
+import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton, removeToDoModal } from "./elementSelect";
 
 export { titleContainerSelect } from "./elementSelect";
 
@@ -27,6 +27,8 @@ export function createProjectButton() {
         if (document.querySelector("#formContainer")) {
             alert("Please fill out the project form.")
         } else {
+            // Removes "to do" modal
+            removeToDoModal();
             createProjectModal();
         }
     });
@@ -119,13 +121,11 @@ function renderToSidebar() {
             // Remove "create project" modal
             removeProjectModal();
             // Creates "Add to do" button
-            // Removes previous button
-            removeToDoButton();
+            removeToDoButton(); // Removes previous modal
             createToDoBtn(); // Add button
         });
     })
 }
-
 
 // Responsible for loading projects contents into main area of page
 function loadProject(index) {
@@ -159,7 +159,11 @@ function createToDoBtn() {
 
     // Handle button click event, opens modal
     createToDo.addEventListener("click", () => {
-        createToDoModal();
+        if (document.querySelector("#toDoModalDiv")) {
+            alert("Please fill out the current modal")
+        } else {
+            createToDoModal();
+        }
     });
 }
 
