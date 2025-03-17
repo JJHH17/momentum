@@ -118,6 +118,8 @@ function renderToSidebar() {
             loadProject(index);
             // Remove "create project" modal
             removeProjectModal();
+            // Creates "Add to do" button
+            createToDoBtn();
         });
     })
 }
@@ -138,4 +140,51 @@ function loadProject(index) {
     const projectDesc = document.createElement("p");
     projectDesc.textContent = "Description: " + projects[index].description;
     main.appendChild(projectDesc)
+}
+
+
+// Create to do button
+function createToDoBtn() {
+    const mainContainer = titleContainerSelect(); // Used to append button to page
+    mainContainer.style.textAlign = "center";
+
+    const createToDo = document.createElement("button");
+    createToDo.type = "button";
+    createToDo.textContent = "Create To Do Item";
+    // Appends to page
+    mainContainer.appendChild(createToDo);
+
+    // Handle button click event, opens modal
+
+}
+
+
+// Create to do modal
+function createToDoModal() {
+    const containerDiv = document.createElement("div");
+    containerDiv.id = "toDoModalDiv";
+    // Append to page
+    siteContainerSelect().appendChild(containerDiv);
+
+    // Styling and positioning
+    containerDiv.style.position = "absolute";
+    containerDiv.style.left = "50%";
+    containerDiv.style.right = "50%";
+    containerDiv.style.top = "25%";
+
+    // Creation of form
+    const toDoForm = document.createElement("form");
+    containerDiv.appendChild(toDoForm);
+
+    // Create status check elements
+    const statusCheckLabel = document.createElement("label");
+    statusCheckLabel.textContent = "Complete:";
+    toDoForm.appendChild(statusCheckLabel);
+
+    const statusCheckInput = document.createElement("input");
+    statusCheckInput.type = "checkbox";
+    toDoForm.appendChild(statusCheckInput);
+
+    // Creates to do title elements
+    
 }
