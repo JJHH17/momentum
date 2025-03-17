@@ -1,4 +1,4 @@
-import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect } from "./elementSelect";
+import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect } from "./elementSelect";
 
 export { titleContainerSelect } from "./elementSelect";
 
@@ -11,13 +11,16 @@ let currentActiveIndex = null;
 
 // Creates "create Project" button
 export function createProjectButton() {
+    const mainContainer = titleContainerSelect();
+    mainContainer.style.textAlign = "center";
+
     const createProjectBtn = document.createElement("button");
     createProjectBtn.id = "createProjectBtn";
+    createProjectBtn.textContent = "Add New Project";
     createProjectBtn.type = "button";
-    createProjectBtn.textContent = "Create Project";
 
     // Appends to page
-    titleContainerSelect().appendChild(createProjectBtn);
+    mainContainer.appendChild(createProjectBtn);
 
     // Add event listener
     createProjectBtn.addEventListener("click", () => {
@@ -109,5 +112,23 @@ function renderToSidebar() {
         projectDiv.addEventListener("mouseleave", () => {
             projectDiv.style.backgroundColor = "";
         });
+
+        // Expands project into main area
+        projectDiv.addEventListener("click", () => {
+            loadProject(index);
+        });
     })
+}
+
+
+// Responsible for loading projects contents into main area of page
+function loadProject(index) {
+    currentActiveIndex = index; // Allows us to dynamically update project being shown
+    const main = mainBodySelect();
+    main.innerHTML = ""; // Clears contents before call
+    
+    // Display project title
+    const projectTitle = document.createElement("p");
+    projectTitle.textContent = projects[index].title;
+    main.appendChild(projectTitle);
 }
