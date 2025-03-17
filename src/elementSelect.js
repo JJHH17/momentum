@@ -33,3 +33,10 @@ export function sidebarSelect() {
     const sidebar = document.querySelector("#sidebar");
     return sidebar;
 }
+
+export function removeToDoButton() {
+    const toDoButton = document.querySelector("#createToDo");
+    if (toDoButton) {
+        toDoButton.remove();
+    }
+}

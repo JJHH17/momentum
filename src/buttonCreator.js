@@ -1,4 +1,4 @@
-import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect } from "./elementSelect";
+import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton } from "./elementSelect";
 
 export { titleContainerSelect } from "./elementSelect";
 
@@ -119,7 +119,9 @@ function renderToSidebar() {
             // Remove "create project" modal
             removeProjectModal();
             // Creates "Add to do" button
-            createToDoBtn();
+            // Removes previous button
+            removeToDoButton();
+            createToDoBtn(); // Add button
         });
     })
 }
@@ -151,11 +153,14 @@ function createToDoBtn() {
     const createToDo = document.createElement("button");
     createToDo.type = "button";
     createToDo.textContent = "Create To Do Item";
+    createToDo.id = "createToDo";
     // Appends to page
     mainContainer.appendChild(createToDo);
 
     // Handle button click event, opens modal
-
+    createToDo.addEventListener("click", () => {
+        createToDoModal();
+    });
 }
 
 
@@ -186,5 +191,41 @@ function createToDoModal() {
     toDoForm.appendChild(statusCheckInput);
 
     // Creates to do title elements
-    
+    const toDoTitleLabel = document.createElement("label");
+    toDoTitleLabel.textContent = "Title";
+    toDoForm.appendChild(toDoTitleLabel);
+
+    const toDoTitleInput = document.createElement("input");
+    toDoForm.appendChild(toDoTitleInput);
+
+    // Creates to do notes elements
+    const toDoNotesLabel = document.createElement("label");
+    toDoNotesLabel.textContent = "Notes";
+    toDoForm.appendChild(toDoNotesLabel);
+
+    const toDoNotesInput = document.createElement("input");
+    toDoForm.appendChild(toDoNotesInput);
+
+    // Creates to do date elements
+    const toDoDateLabel = document.createElement("label");
+    toDoDateLabel.textContent = "Due Date";
+    toDoForm.appendChild(toDoDateLabel);
+
+    const toDoDateInput = document.createElement("input");
+    toDoDateInput.type = "date";
+    toDoForm.appendChild(toDoDateInput);
+
+    // Creates priority elements
+    const toDoPriorityLabel = document.createElement("label");
+    toDoPriorityLabel.textContent = "Priority";
+    toDoForm.appendChild(toDoPriorityLabel);
+
+    const toDoPriorityInput = document.createElement("input");
+    toDoForm.appendChild(toDoPriorityInput);
+
+    // Adds submit button to modal
+    const submitToDo = document.createElement("button");
+    submitToDo.type = "button";
+    submitToDo.textContent = "Create";
+    toDoForm.appendChild(submitToDo);
 }
