@@ -116,6 +116,8 @@ function renderToSidebar() {
         // Expands project into main area
         projectDiv.addEventListener("click", () => {
             loadProject(index);
+            // Remove "create project" modal
+            removeProjectModal();
         });
     })
 }
