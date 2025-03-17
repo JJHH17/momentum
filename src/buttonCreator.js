@@ -129,6 +129,11 @@ function loadProject(index) {
     
     // Display project title
     const projectTitle = document.createElement("p");
-    projectTitle.textContent = projects[index].title;
+    projectTitle.textContent = "Project: " + projects[index].title;
     main.appendChild(projectTitle);
+
+    // Display project description
+    const projectDesc = document.createElement("p");
+    projectDesc.textContent = "Description: " + projects[index].description;
+    main.appendChild(projectDesc)
 }
