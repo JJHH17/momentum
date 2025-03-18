@@ -149,10 +149,26 @@ function loadProject(index) {
     toDoItems.id = "toDoItems";
 
     // Prints "to do" array items to screen
-    projects[index].toDo.forEach(toDo => {
+    projects[index].toDo.forEach((toDo, todoIndex) => {
         let toDoItem = document.createElement("div");
-        toDoItem.textContent = `
-        Completed? ${toDo.completed}
+
+        // Check box that updates status of "to do"
+        const toDoCheckbox = document.createElement("input");
+        toDoCheckbox.type = "checkbox";
+        toDoCheckbox.checked = toDo.completed;
+
+        toDoItems.appendChild(toDoCheckbox);
+
+
+        // Add functionality of checkbox tick
+        toDoCheckbox.addEventListener("change", () => {
+            // Update satatus 
+            projects[index].toDo[todoIndex].completed = toDoCheckbox.checked;
+            loadProject(currentActiveIndex); // re loads the function when actioned
+        });
+
+        toDoItem.textContent += `
+        completed? ${toDo.completed}
         Title: ${toDo.title}
         Details: ${toDo.notes}
         Due Date: ${toDo.dueDate}
