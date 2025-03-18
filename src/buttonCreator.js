@@ -254,8 +254,25 @@ function createToDoModal() {
     toDoPriorityLabel.textContent = "Priority";
     toDoForm.appendChild(toDoPriorityLabel);
 
-    const toDoPriorityInput = document.createElement("input");
+    const toDoPriorityInput = document.createElement("select");
     toDoForm.appendChild(toDoPriorityInput);
+
+    // Creating the drop down elements for priority input
+    const p1 = document.createElement("option");
+    p1.textContent = "P1";
+    toDoPriorityInput.appendChild(p1);
+
+    const p2 = document.createElement("option");
+    p2.textContent = "P2";
+    toDoPriorityInput.appendChild(p2);
+
+    const p3 = document.createElement("option");
+    p3.textContent = "P3";
+    toDoPriorityInput.appendChild(p3);
+
+    const p4 = document.createElement("option");
+    p4.textContent = "P4";
+    toDoPriorityInput.appendChild(p4);
 
     // Adds submit button to modal
     const submitToDo = document.createElement("button");
@@ -270,7 +287,7 @@ function createToDoModal() {
                 completed: isCompleteValue,
                 title: toDoTitleInput.value.trim(),
                 notes: toDoNotesInput.value.trim(),
-                dueDate: toDoDateInput,
+                dueDate: toDoDateInput.value,
                 priority: toDoPriorityInput.value.trim(),
             })
             // Removal modal
