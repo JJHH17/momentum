@@ -143,6 +143,27 @@ function loadProject(index) {
     const projectDesc = document.createElement("p");
     projectDesc.textContent = "Description: " + projects[index].description;
     main.appendChild(projectDesc)
+
+    // This will contain the "To do" items
+    const toDoItems = document.createElement("div");
+    toDoItems.id = "toDoItems";
+
+    // Prints "to do" array items to screen
+    projects[index].toDo.forEach(toDo => {
+        let toDoItem = document.createElement("div");
+        toDoItem.textContent = `
+        Completed? ${toDo.completed}
+        Title: ${toDo.title}
+        Details: ${toDo.notes}
+        Due Date: ${toDo.dueDate}
+        Priority: ${toDo.priority}`
+
+        // Appends to container div
+        toDoItems.appendChild(toDoItem);
+    });
+
+    // Appends to do div to page
+    main.appendChild(toDoItems);
 }
 
 
@@ -254,6 +275,7 @@ function createToDoModal() {
             })
             // Removal modal
             removeToDoModal();
+            loadProject(currentActiveIndex) // Reloads display
         }
     })
 }
