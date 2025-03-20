@@ -1,4 +1,4 @@
-import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton, removeToDoModal } from "./elementSelect";
+import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton, removeToDoModal, editToDoBtnSelect } from "./elementSelect";
 
 export { titleContainerSelect } from "./elementSelect";
 
@@ -176,7 +176,10 @@ function loadProject(index) {
 
         // Appends to container div
         toDoItems.appendChild(toDoItem);
+        toDoItems.appendChild(editToDo());
     });
+
+
 
     // Appends to do div to page
     main.appendChild(toDoItems);
@@ -205,6 +208,73 @@ function createToDoBtn() {
             createToDoModal();
         }
     });
+}
+
+// Button that allows user to edit "to do" items
+function editToDo() {
+    const editToDoBtn = document.createElement("button");
+    editToDoBtn.type = "button";
+    editToDoBtn.textContent = "Edit";
+    editToDoBtn.id = "editToDoBtn";
+
+    editToDoBtn.addEventListener("click", () => {
+        editToDoModal();
+    })
+
+    return editToDoBtn;
+}
+
+// Modal that allows user to edit "to do" items
+function editToDoModal() {
+    const formContainer = document.createElement("div");
+    formContainer.id = "editToDoModalContainer";
+    siteContainerSelect().appendChild(formContainer);
+    // Styling
+    formContainer.style.position = "absolute";
+    formContainer.style.right = "50%";
+    formContainer.style.left = "50%";
+    formContainer.style.top = "25%";
+
+    const editToDoForm = document.createElement("form");
+    formContainer.appendChild(editToDoForm)
+
+    // Edits to do title
+    const editTitleLabel = document.createElement("label");
+    editTitleLabel.textContent = "Title";
+    editToDoForm.appendChild(editTitleLabel);
+    
+    const editTitleInput = document.createElement("input");
+    editToDoForm.appendChild(editTitleInput);
+
+    // Edit details/notes
+    const editDetailsLabel = document.createElement("label");
+    editDetailsLabel.textContent = "Details";
+    editToDoForm.appendChild(editDetailsLabel);
+
+    const editDetailsInput = document.createElement("input");
+    editToDoForm.appendChild(editDetailsInput);
+
+    // Edit due date
+    const editDateLabel = document.createElement("label");
+    editDateLabel.textContent = "Due Date";
+    editToDoForm.appendChild(editDateLabel);
+
+    const editDateInput = document.createElement("input");
+    editDateInput.type = "date";
+    editToDoForm.appendChild(editDateInput);
+
+    const editPriorityLabel = document.createElement("label");
+    editPriorityLabel.textContent = "Priority";
+    editToDoForm.appendChild(editPriorityLabel);
+
+    const editPriorityInput = document.createElement("input");
+    editToDoForm.appendChild(editPriorityInput);
+
+    // Creates submission button
+    const submitEdits = document.createElement("button");
+    submitEdits.type = "button";
+    submitEdits.textContent = "Submit";
+    editToDoForm.appendChild(submitEdits);
 }
 
 

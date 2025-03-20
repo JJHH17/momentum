@@ -47,3 +47,8 @@ export function removeToDoModal() {
         toDoModal.remove();
     }
 }
+
+export function editToDoBtnSelect() {
+    const editToDoBtn = document.querySelector("#editToDoBtn");
+    return editToDoBtn;
+}
