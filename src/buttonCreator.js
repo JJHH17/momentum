@@ -1,7 +1,5 @@
 import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton, removeToDoModal, editToDoBtnSelect } from "./elementSelect";
 
-export { titleContainerSelect } from "./elementSelect";
-
 // Stores projects
 let projects = [];
 // Confirms which index we're on
@@ -176,7 +174,7 @@ function loadProject(index) {
 
         // Appends to container div
         toDoItems.appendChild(toDoItem);
-        toDoItems.appendChild(editToDo());
+        toDoItems.appendChild(editToDo(index, todoIndex));
     });
 
 
@@ -211,21 +209,23 @@ function createToDoBtn() {
 }
 
 // Button that allows user to edit "to do" items
-function editToDo() {
+function editToDo(index, toDoIndex) {
     const editToDoBtn = document.createElement("button");
     editToDoBtn.type = "button";
     editToDoBtn.textContent = "Edit";
     editToDoBtn.id = "editToDoBtn";
 
     editToDoBtn.addEventListener("click", () => {
-        editToDoModal();
+        editToDoModal(index, toDoIndex);
     })
 
     return editToDoBtn;
 }
 
 // Modal that allows user to edit "to do" items
-function editToDoModal() {
+function editToDoModal(index, toDoIndex) {
+    const toDoItem = projects[index].toDo[toDoIndex];
+
     const formContainer = document.createElement("div");
     formContainer.id = "editToDoModalContainer";
     siteContainerSelect().appendChild(formContainer);
@@ -244,6 +244,7 @@ function editToDoModal() {
     editToDoForm.appendChild(editTitleLabel);
     
     const editTitleInput = document.createElement("input");
+    editTitleInput.value = toDoItem.title;
     editToDoForm.appendChild(editTitleInput);
 
     // Edit details/notes
@@ -252,6 +253,7 @@ function editToDoModal() {
     editToDoForm.appendChild(editDetailsLabel);
 
     const editDetailsInput = document.createElement("input");
+    editDetailsInput.value = toDoItem.notes;
     editToDoForm.appendChild(editDetailsInput);
 
     // Edit due date
@@ -261,6 +263,7 @@ function editToDoModal() {
 
     const editDateInput = document.createElement("input");
     editDateInput.type = "date";
+    editDateInput.value = toDoItem.dueDate;
     editToDoForm.appendChild(editDateInput);
 
     const editPriorityLabel = document.createElement("label");
@@ -268,6 +271,7 @@ function editToDoModal() {
     editToDoForm.appendChild(editPriorityLabel);
 
     const editPriorityInput = document.createElement("input");
+    editPriorityInput.value = toDoItem.priority;
     editToDoForm.appendChild(editPriorityInput);
 
     // Creates submission button
@@ -275,6 +279,22 @@ function editToDoModal() {
     submitEdits.type = "button";
     submitEdits.textContent = "Submit";
     editToDoForm.appendChild(submitEdits);
+
+    // Handles submission button and feeds into behaviour
+    submitEdits.addEventListener("click", () => {
+        // Update to relevant "To Do" entry
+        projects[index].toDo[toDoIndex] = {
+            ...toDoItem,
+            title: editTitleInput.value,
+            notes: editDetailsInput.value,
+            dueDate: editDateInput.value,
+            priority: editPriorityInput.value,
+        };
+
+        // Removed project modal and reload project
+        formContainer.remove();
+        loadProject(index);
+    });
 }
 
 
