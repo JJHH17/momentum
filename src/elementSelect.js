@@ -52,3 +52,15 @@ export function editToDoBtnSelect() {
     const editToDoBtn = document.querySelector("#editToDoBtn");
     return editToDoBtn;
 }
+
+export function removeEditModal() {
+    const removeEditModal = document.querySelector("#editToDoModalContainer");
+    if (removeEditModal) {
+        removeEditModal.remove();
+    }
+}
+
+export function editModalSelect() {
+    const editModal = document.querySelector("#editToDoModalContainer");
+    return editModal;
+}

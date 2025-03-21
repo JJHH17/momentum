@@ -1,4 +1,4 @@
-import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton, removeToDoModal, editToDoBtnSelect } from "./elementSelect";
+import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton, removeToDoModal, editToDoBtnSelect, removeEditModal, editModalSelect } from "./elementSelect";
 
 // Stores projects
 let projects = [];
@@ -25,8 +25,9 @@ export function createProjectButton() {
         if (document.querySelector("#formContainer")) {
             alert("Please fill out the project form.")
         } else {
-            // Removes "to do" modal
+            // Removes "to do" modal and "edit to do" modal
             removeToDoModal();
+            removeEditModal();
             createProjectModal();
         }
     });
@@ -116,9 +117,10 @@ function renderToSidebar() {
         // Expands project into main area
         projectDiv.addEventListener("click", () => {
             loadProject(index);
-            // Remove "create project" modal and "to do" modal
+            // Remove "create project" modal, "to do" modal and "edit" modal
             removeProjectModal();
             removeToDoModal();
+            removeEditModal();
             // Creates "Add to do" button
             removeToDoButton(); // Removes previous modal
             createToDoBtn(); // Add button
@@ -201,8 +203,9 @@ function createToDoBtn() {
         if (document.querySelector("#toDoModalDiv")) {
             alert("Please fill out the current modal")
         } else {
-            // Removes project modal
+            // Removes project modal and "edit to do" button
             removeProjectModal();
+            removeEditModal();
             createToDoModal();
         }
     });
@@ -216,7 +219,13 @@ function editToDo(index, toDoIndex) {
     editToDoBtn.id = "editToDoBtn";
 
     editToDoBtn.addEventListener("click", () => {
-        editToDoModal(index, toDoIndex);
+        if (editModalSelect()) {
+            alert("Please fill out the displayed form")
+        } else {
+            editToDoModal(index, toDoIndex);
+            removeProjectModal(); // Removes project modal
+            removeToDoModal();  // Removes to do modal
+        }
     })
 
     return editToDoBtn;
@@ -224,7 +233,7 @@ function editToDo(index, toDoIndex) {
 
 // Modal that allows user to edit "to do" items
 function editToDoModal(index, toDoIndex) {
-    const toDoItem = projects[index].toDo[toDoIndex];
+    const toDoItem = projects[index].toDo[toDoIndex];    
 
     const formContainer = document.createElement("div");
     formContainer.id = "editToDoModalContainer";
@@ -402,3 +411,5 @@ function createToDoModal() {
         }
     })
 }
+
+// Creation of "delete to do item" button
