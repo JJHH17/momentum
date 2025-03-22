@@ -1,4 +1,5 @@
 import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton, removeToDoModal, editToDoBtnSelect, removeEditModal, editModalSelect } from "./elementSelect";
+import { saveProjects } from localStorage;
 
 // Stores projects
 let projects = [];
@@ -86,6 +87,8 @@ function createProject(title, description) {
     const newProject = { title, description, toDo: [] };
     // Push to projects array
     projects.push(newProject);
+    // Saves to local storage
+    saveProjects();
 }
 
 
@@ -164,6 +167,7 @@ function loadProject(index) {
         toDoCheckbox.addEventListener("change", () => {
             // Update satatus 
             projects[index].toDo[todoIndex].completed = toDoCheckbox.checked;
+            saveProjects();
             loadProject(currentActiveIndex); // re loads the function when actioned
         });
 
@@ -299,6 +303,7 @@ function editToDoModal(index, toDoIndex) {
             priority: editPriorityInput.value,
         };
 
+        saveProjects();
         // Removed project modal and reload project
         formContainer.remove();
         loadProject(index);
@@ -404,6 +409,7 @@ function createToDoModal() {
                 dueDate: toDoDateInput.value,
                 priority: toDoPriorityInput.value.trim(),
             })
+            saveProjects();
             // Removal modal
             removeToDoModal();
             loadProject(currentActiveIndex) // Reloads display
@@ -419,6 +425,7 @@ function deleteToDoBtn(index, toDoIndex) {
 
     deleteButton.addEventListener("click", () => {
         projects[index].toDo.splice(toDoIndex, 1);
+        saveProjects();
         loadProject(currentActiveIndex);
     })
 
@@ -433,8 +440,12 @@ function deleteProjectBtn(index) {
 
     deleteProject.addEventListener("click", () => {
         projects.splice(index, 1);
+        saveProjects();
         renderToSidebar()
     })
 
     return deleteProject;
 }
+
+// Initial render of projects to sidebar
+renderToSidebar();
