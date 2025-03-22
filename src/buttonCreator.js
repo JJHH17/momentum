@@ -427,10 +427,15 @@ function deleteToDoBtn(index, toDoIndex) {
 }
 
 // Creation of "delete project items" button
-function deleteProjectBtn() {
+function deleteProjectBtn(index) {
     const deleteProject = document.createElement("button");
     deleteProject.type = "button";
     deleteProject.textContent = "Delete Project";
+
+    deleteProject.addEventListener("click", () => {
+        projects.splice(index, 1);
+        renderToSidebar()
+    })
 
     return deleteProject;
 }
