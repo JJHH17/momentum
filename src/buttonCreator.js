@@ -1,8 +1,8 @@
 import { titleContainerSelect, siteContainerSelect, removeProjectModal, sidebarSelect, mainBodySelect, removeToDoButton, removeToDoModal, editToDoBtnSelect, removeEditModal, editModalSelect } from "./elementSelect";
-import { saveProjects } from localStorage;
+import { saveProjectsLocal, loadProjectsLocal } from "./localStorage";
 
-// Stores projects
-let projects = [];
+// Stores projects, local storage API Used
+let projects = loadProjectsLocal();
 // Confirms which index we're on
 let currentActiveIndex = null;
 
@@ -88,7 +88,7 @@ function createProject(title, description) {
     // Push to projects array
     projects.push(newProject);
     // Saves to local storage
-    saveProjects();
+    saveProjectsLocal(projects);
 }
 
 
@@ -105,10 +105,9 @@ function renderToSidebar() {
 
         // Appends to sidebar
         sidebar.appendChild(projectDiv);
-        sidebar.appendChild(deleteProjectBtn());
+        sidebar.appendChild(deleteProjectBtn(index));
 
-
-            // Mouse over events colour div when hovering over
+        // Mouse over events colour div when hovering over
         projectDiv.addEventListener("mouseover", () => {
             projectDiv.style.backgroundColor = "pink";
         });
@@ -128,7 +127,7 @@ function renderToSidebar() {
             removeToDoButton(); // Removes previous modal
             createToDoBtn(); // Add button
         });
-    })
+    });
 }
 
 // Responsible for loading projects contents into main area of page
@@ -162,12 +161,11 @@ function loadProject(index) {
 
         toDoItems.appendChild(toDoCheckbox);
 
-
         // Add functionality of checkbox tick
         toDoCheckbox.addEventListener("change", () => {
             // Update satatus 
             projects[index].toDo[todoIndex].completed = toDoCheckbox.checked;
-            saveProjects();
+            saveProjectsLocal(projects);
             loadProject(currentActiveIndex); // re loads the function when actioned
         });
 
@@ -187,7 +185,6 @@ function loadProject(index) {
     // Appends to do div to page
     main.appendChild(toDoItems);
 }
-
 
 // Create to do button
 function createToDoBtn() {
@@ -229,8 +226,7 @@ function editToDo(index, toDoIndex) {
             removeProjectModal(); // Removes project modal
             removeToDoModal();  // Removes to do modal
         }
-    })
-
+    });
     return editToDoBtn;
 }
 
@@ -303,7 +299,7 @@ function editToDoModal(index, toDoIndex) {
             priority: editPriorityInput.value,
         };
 
-        saveProjects();
+        saveProjectsLocal(projects);
         // Removed project modal and reload project
         formContainer.remove();
         loadProject(index);
@@ -409,12 +405,12 @@ function createToDoModal() {
                 dueDate: toDoDateInput.value,
                 priority: toDoPriorityInput.value.trim(),
             })
-            saveProjects();
+            saveProjectsLocal(projects);
             // Removal modal
             removeToDoModal();
             loadProject(currentActiveIndex) // Reloads display
         }
-    })
+    });
 }
 
 // Creation of "delete to do item" button
@@ -425,7 +421,7 @@ function deleteToDoBtn(index, toDoIndex) {
 
     deleteButton.addEventListener("click", () => {
         projects[index].toDo.splice(toDoIndex, 1);
-        saveProjects();
+        saveProjectsLocal(projects);
         loadProject(currentActiveIndex);
     })
 
@@ -440,7 +436,7 @@ function deleteProjectBtn(index) {
 
     deleteProject.addEventListener("click", () => {
         projects.splice(index, 1);
-        saveProjects();
+        saveProjectsLocal(projects);
         renderToSidebar()
     })
 
