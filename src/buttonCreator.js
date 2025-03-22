@@ -5,7 +5,6 @@ let projects = [];
 // Confirms which index we're on
 let currentActiveIndex = null;
 
-// Responsible for creating button elements on page
 
 // Creates "create Project" button
 export function createProjectButton() {

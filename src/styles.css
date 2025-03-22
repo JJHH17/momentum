@@ -1,5 +1,6 @@
 * {
     margin: 0px;
+    background-color: #48b7a2;
 }
 
 #pageStructure {
@@ -10,8 +11,27 @@
 
 #sidebar {
     border: 1px solid black;
+    background-color: #C43B63;
 }
 
 #appTitle {
     text-align: center;
 }
+
+button {
+    border: 3px solid pink;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+#sidebar button {
+    background-color: #C43B63;
+    color: white;
+}
+
+#sidebar div{
+    background-color: #C43B63;
+    color: white;
+    text-align: center;
+}
+
