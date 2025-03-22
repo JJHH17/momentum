@@ -177,9 +177,8 @@ function loadProject(index) {
         // Appends to container div
         toDoItems.appendChild(toDoItem);
         toDoItems.appendChild(editToDo(index, todoIndex));
+        toDoItem.appendChild(deleteToDoBtn(index, todoIndex));
     });
-
-
 
     // Appends to do div to page
     main.appendChild(toDoItems);
@@ -413,3 +412,15 @@ function createToDoModal() {
 }
 
 // Creation of "delete to do item" button
+function deleteToDoBtn(index, toDoIndex) {
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.textContent = "Delete Item";
+
+    deleteButton.addEventListener("click", () => {
+        projects[index].toDo.splice(toDoIndex, 1);
+        loadProject(currentActiveIndex);
+    })
+
+    return deleteButton;
+}
