@@ -103,6 +103,7 @@ function renderToSidebar() {
 
         // Appends to sidebar
         sidebar.appendChild(projectDiv);
+        sidebar.appendChild(deleteProjectBtn());
 
 
             // Mouse over events colour div when hovering over
@@ -423,4 +424,13 @@ function deleteToDoBtn(index, toDoIndex) {
     })
 
     return deleteButton;
+}
+
+// Creation of "delete project items" button
+function deleteProjectBtn() {
+    const deleteProject = document.createElement("button");
+    deleteProject.type = "button";
+    deleteProject.textContent = "Delete Project";
+
+    return deleteProject;
 }
